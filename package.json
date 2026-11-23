@@ -1,0 +1,16 @@
+{
+  "name": "clarity-relay",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The sealed-envelope relay behind Clarity AUI's phone approvals",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "vapid": "node scripts/vapid.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "^4.147.0"
+  }
+}

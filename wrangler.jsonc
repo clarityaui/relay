@@ -1,0 +1,24 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // A mailbox per pairing that forwards sealed envelopes between one Clarity install and its phone.
+  "name": "clarity-relay",
+  "main": "src/worker.ts",
+  "compatibility_date": "2026-09-05",
+  // Serve it on a domain of your own by uncommenting this and naming a host in a zone of your account:
+  // "workers_dev": false,
+  // "routes": [{ "pattern": "relay.example.com", "custom_domain": true }],
+  "durable_objects": {
+    "bindings": [
+      { "name": "MAILBOX", "class_name": "Mailbox" },
+      { "name": "GATE", "class_name": "Gate" }
+    ]
+  },
+  // SQLite-backed, which the free plan's Durable Objects are.
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Mailbox", "Gate"] }],
+  "vars": {
+    // Who a push service may write to about this relay: an https page or a mailto: of yours.
+    "VAPID_SUBJECT": "https://example.com"
+  },
+  // No request logs: a URL names a pairing, and the relay keeps no more about a pairing than it must.
+  "observability": { "enabled": false }
+}
